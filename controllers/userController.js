@@ -2,24 +2,29 @@ const userModel = require('../models/userModel');
 
 //POST
 const postUser = async (req, res) => {
+  const newUser = {
+    FIRSTNAME: req.body.FIRSTNAME,
+    LASTNAME: req.body.LASTNAME,
+    EMAIL: req.body.EMAIL,
+    PHONE_NUMBER: req.body.PHONE_NUMBER,
+    ADDRESS: req.body.ADDRESS,
+    PASSWORD: req.body.PASSWORD,
+  }
   try {
-    const { username, email, password } = req.body;
-    const newUser = await userModel.createUser(username, email, password);
-    res.status(201).json(newUser);
+    const user = await userModel.createUser(newUser);
+    res.status(201).json(user);
   } catch (error) {
     res.status(500).json({ error: 'An error occurred while creating the user.' });
   }
 };
-
-// SINGLE GET
 const getAllUsers = async (req, res) => {
   try {
     const users = await userModel.getAllUsers();
-    res.status(200).json(users);
-  } catch (error) {
+    res.status(200).json(users)
+  }catch{
     res.status(500).json({ error: 'An error occurred while fetching all users.' });
   }
-};
+}
 const getUserById = async (req, res) => {
   try {
     const userId = req.params.id
@@ -27,7 +32,6 @@ const getUserById = async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
-
     res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ error: 'An error occurred while fetching the user.' });
@@ -40,36 +44,36 @@ const getUserByEmail = async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
-
     res.status(200).json(user);
   } catch (error) {
-    res.status(500).json({ error: 'An error occurred while fetching the user.' });
+    console.log(Error)
+      res.status(500).json({ error: 'An error occurred while fetching the user.' });
   }
 };
 const putUser = async (req, res) => {
+  const userId = req.params.id;
+  const updatedUser = {
+    FIRSTNAME: req.body.FIRSTNAME,
+    LASTNAME: req.body.LASTNAME,
+    EMAIL: req.body.EMAIL,
+    PHONE_NUMBER: req.body.PHONE_NUMBER,
+    ADDRESS: req.body.ADDRESS,
+    PASSWORD: req.body.PASSWORD,
+  };
   try {
-    const userId = req.params.id; 
-    const newUserData = req.body;
-
-    const updatedUser = await userModel.updateUser(userId, newUserData);
-    if (!updatedUser) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-
-    res.status(200).json(updatedUser);
+    const user = await userModel.updateUser(userId, updatedUser);
+    res.status(200).json(user);
   } catch (error) {
-    res.status(500).json({ error: 'An error occurred while fetching the user.' });
+    res.status(500).json({ error: 'An error occurred while updating the user.' });
   }
 };
 const deleteUser = async (req, res) => {
   try {
     const userId = req.params.id; 
-
     const deleteUser = await userModel.deleteUser(userId);
     if (!deleteUser) {
       return res.status(404).json({ error: 'User not found' });
     }
-
     res.status(200).json(deleteUser);
   } catch (error) {
     res.status(500).json({ error: 'An error occurred while fetching the user.' });

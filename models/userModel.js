@@ -2,96 +2,95 @@ const db = require('../config/db');
 const bcrypt = require('bcrypt'); 
 
 // CREATE USER
-const createUser = async (username, email, password) => {
+const createUser = async (newUser) => {
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const query = 'INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING *';
-    const values = [username, email, hashedPassword];
-    const result = await db.query(query, values);
-
-    return result.rows[0];
+    const hashedPassword = await bcrypt.hash(newUser.PASSWORD, 10);
+    const query = `
+    INSERT INTO "USERS" 
+    ("FIRSTNAME", "LASTNAME", "EMAIL", "PHONE_NUMBER", "ADDRESS", "PASSWORD") 
+    VALUES ($1, $2, $3, $4, $5, $6) 
+    RETURNING *`;
+    const values = [
+      newUser.FIRSTNAME, 
+      newUser.LASTNAME, 
+      newUser.EMAIL, 
+      newUser.PHONE_NUMBER, 
+      newUser.ADDRESS, 
+      hashedPassword
+    ];
+    const result = await db.one(query, values);
+    return result;
   } catch (error) {
     console.error('Error creating user', error);
-    throw error
+    throw error;
   }
 };
-const getAllUsers = async () => {
-    try {
-      const query = 'SELECT * FROM users';
-      const result = await db.query(query);
-  
-      return result.rows;
-    } catch (error) {
-      console.error('Error getting all users', error);
-      return error;
-    }
-};
+async function getAllUsers() {
+  try {
+    const query = `SELECT * FROM "USERS"`;
+    const users = await db.any(query);
+    return users;
+  } catch (error) {
+    throw error;
+  }
+}
 const getUserById = async (userId) => {
     try {
-      const query = 'SELECT * FROM users WHERE user_id = $1';
+      const query = `
+      SELECT * FROM "USERS" 
+      WHERE "ID" = $1`;
       const values = [userId];
-      const result = await db.query(query, values);
-  
-      if (result.rows.length === 0) {
-        return null; 
-      }
-  
-      return result.rows[0];
+      const result = await db.oneOrNone(query, values);
+      return result
     } catch (error) {
-      console.error('Error getting user by ID', error);
       throw error;
     }
 };
 const getUserByEmail = async (email) => {
     try {
-      const query = 'SELECT * FROM users WHERE email = $1';
+      const query = `
+      SELECT * FROM "USERS" 
+      WHERE "EMAIL" = $1`;
       const values = [email];
-      const result = await db.query(query, values);
-  
-      if (result.rows.length === 0) {
-        return null; 
-      }
-  
-      return result.rows[0];
+      const result = await db.oneOrNone(query, values);
+      return result
     } catch (error) {
-      console.error('Error getting user by email', error);
       throw error;
     }
 };
-const updateUser = async (userId, newUserData) => {
+const updateUser = async (userId, updatedUser) => {
     try {
-      const { username, email, password } = newUserData;
+      const query = `
+      UPDATE "USERS"
+      SET "FIRSTNAME" = $1, "LASTNAME" = $2, "EMAIL" = $3, "PHONE_NUMBER" = $4, "ADDRESS" = $5, "PASSWORD" = $6
+      WHERE "ID" = $7
+      RETURNING *
+    `;
+    const values = [
+      updatedUser.FIRSTNAME,
+      updatedUser.LASTNAME,
+      updatedUser.EMAIL,
+      updatedUser.PHONE_NUMBER,
+      updatedUser.ADDRESS,
+      updatedUser.PASSWORD,
+      userId,
+    ];
 
-      // Check if the user exists
-      const existingUser = await getUserById(userId);
-
-      if (!existingUser) {
-        return null; // User not found
-      }
-
-       const query = 'UPDATE users SET username = $1, email = $2, password = $3 WHERE user_id = $4 RETURNING *';
-       const values = [username, email, password, userId];
-       const result = await db.query(query, values);
-  
-      return result.rows[0];
+    const result = await db.one(query, values);
+    return result;
     } catch (error) {
-      console.error('Error getting user by email', error);
       throw error;
     }
 };
 const deleteUser = async (userId) => {
     try {
       const existingUser = await getUserById(userId);
-  
       if (!existingUser) {
         return false; 
       }
-  
-      const query = 'DELETE FROM users WHERE user_id = $1';
+      const query = `DELETE FROM "USERS" WHERE "ID" = $1`;
       const values = [userId];
       await db.query(query, values);
-  
       return true; 
     } catch (error) {
       console.error('Error deleting user', error);

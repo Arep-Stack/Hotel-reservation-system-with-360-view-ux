@@ -1,14 +1,13 @@
 const pgp = require('pg-promise')();
 const dbConfig = {
-  user: 'postgres',
-  host: 'localhost',
-  database: 'hotel_reservation',
-  password: 'Css12345@',
-  port: 5432,
+  connectionString: "postgres://ngzlunia:m4RB1_ZugLSuEet2WEqVazmn_PYkmg0C@john.db.elephantsql.com/ngzlunia",
+  // user: 'postgres',
+  // host: 'localhost',
+  // database: 'hotel_reservation',
+  // password: 'postgres',
+  // port: 5432,
 };
-
 const db = pgp(dbConfig);
-
 // Define a table schema
 const createTableQuery = `
   CREATE TABLE IF NOT EXISTS "USERS" (
@@ -47,7 +46,6 @@ const createTableQuery = `
     "DESCRIPTION" VARCHAR(255)
   );
 `;
-
 // Create the table
 db.none(createTableQuery)
   .then(() => {
@@ -56,11 +54,4 @@ db.none(createTableQuery)
   .catch((error) => {
     console.error('Error creating tables:', error);
   });
-
-// Export a function that provides a database connection
-// module.exports = {
-//   query: (text, params, callback) => {
-//     return db.query(text, params, callback);
-//   },
-// };
 module.exports = db;
