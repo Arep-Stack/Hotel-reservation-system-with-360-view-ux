@@ -1,22 +1,5 @@
-const userModel = require('../models/userModel');
+const userModel = require('../../models/users/userModel');
 
-//POST
-const postUser = async (req, res) => {
-  const newUser = {
-    FIRSTNAME: req.body.FIRSTNAME,
-    LASTNAME: req.body.LASTNAME,
-    EMAIL: req.body.EMAIL,
-    PHONE_NUMBER: req.body.PHONE_NUMBER,
-    ADDRESS: req.body.ADDRESS,
-    PASSWORD: req.body.PASSWORD,
-  }
-  try {
-    const user = await userModel.createUser(newUser);
-    res.status(201).json(user);
-  } catch (error) {
-    res.status(500).json({ error: 'An error occurred while creating the user.' });
-  }
-};
 const getAllUsers = async (req, res) => {
   try {
     const users = await userModel.getAllUsers();
@@ -80,7 +63,6 @@ const deleteUser = async (req, res) => {
   }
 };
 module.exports = {
-  postUser,
   getAllUsers,
   getUserById,
   getUserByEmail,

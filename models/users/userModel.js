@@ -1,10 +1,8 @@
-const db = require('../config/db');
-const bcrypt = require('bcrypt'); 
+const db = require('../../config/db');
 
 // CREATE USER
 const createUser = async (newUser) => {
   try {
-    const hashedPassword = await bcrypt.hash(newUser.PASSWORD, 10);
     const query = `
     INSERT INTO "USERS" 
     ("FIRSTNAME", "LASTNAME", "EMAIL", "PHONE_NUMBER", "ADDRESS", "PASSWORD") 
@@ -16,7 +14,7 @@ const createUser = async (newUser) => {
       newUser.EMAIL, 
       newUser.PHONE_NUMBER, 
       newUser.ADDRESS, 
-      hashedPassword
+      newUser.PASSWORD
     ];
     const result = await db.one(query, values);
     return result;
