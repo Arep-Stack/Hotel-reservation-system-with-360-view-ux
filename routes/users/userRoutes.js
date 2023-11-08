@@ -4,7 +4,7 @@ const userController = require('../../controllers/users/userController');
 const loginController = require('../../controllers/util/loginController');
 const regitserController = require('../../controllers/util/registerController');
 
-// Create a new user
+// Routes
 router.get('/users', userController.getAllUsers);
 router.get('/users/:id', userController.getUserById);
 router.get('/users/email/:email', userController.getUserByEmail);
