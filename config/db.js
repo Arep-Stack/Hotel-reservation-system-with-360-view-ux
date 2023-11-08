@@ -1,11 +1,14 @@
 const pgp = require('pg-promise')();
 const dbConfig = {
-  connectionString: "postgres://ngzlunia:m4RB1_ZugLSuEet2WEqVazmn_PYkmg0C@john.db.elephantsql.com/ngzlunia",
+  connectionString: `postgres://hotel_reservation_user:dKZJHVh3VWImESTJ8LyZmEZ3tThukkLj@dpg-cl4v31k72pts739nqkg0-a.singapore-postgres.render.com/hotel_reservation`,
   // user: 'postgres',
   // host: 'localhost',
   // database: 'hotel_reservation',
   // password: 'postgres',
   // port: 5432,
+  ssl: {
+    rejectUnauthorized: false
+  }
 };
 const db = pgp(dbConfig);
 // Define a table schema

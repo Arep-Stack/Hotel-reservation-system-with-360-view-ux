@@ -3,34 +3,39 @@ const userModel = require('../../models/users/userModel');
 const getAllUsers = async (req, res) => {
   try {
     const users = await userModel.getAllUsers();
-    res.status(200).json(users)
+    const sanitizedUsers = users.map(user => sanitizeUser(user));
+    res.status(200).json(sanitizedUsers)
   }catch{
+    console.log(error);
     res.status(500).json({ error: 'An error occurred while fetching all users.' });
   }
 }
 const getUserById = async (req, res) => {
   try {
-    const userId = req.params.id
+    const userId = req.params.id;
     const user = await userModel.getUserById(userId);
+    const sanitizedUsers = users.map(user => sanitizeUser(user));
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
-    res.status(200).json(user);
+    res.status(200).json(sanitizedUsers);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: 'An error occurred while fetching the user.' });
   }
 };
 const getUserByEmail = async (req, res) => {
   try {
-    const email = req.params.email
+    const email = req.params.email;
     const user = await userModel.getUserByEmail(email);
+    const sanitizedUser = sanitizeUser(user);
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
-    res.status(200).json(user);
+    res.status(200).json(sanitizedUser);
   } catch (error) {
-    console.log(Error)
-      res.status(500).json({ error: 'An error occurred while fetching the user.' });
+    console.log(error);
+    res.status(500).json({ error: 'An error occurred while fetching the user.' });
   }
 };
 const putUser = async (req, res) => {
@@ -45,8 +50,10 @@ const putUser = async (req, res) => {
   };
   try {
     const user = await userModel.updateUser(userId, updatedUser);
-    res.status(200).json(user);
+    const sanitizedUser = sanitizeUser(user);
+    res.status(200).json(sanitizedUser);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: 'An error occurred while updating the user.' });
   }
 };
@@ -59,9 +66,21 @@ const deleteUser = async (req, res) => {
     }
     res.status(200).json(deleteUser);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: 'An error occurred while fetching the user.' });
   }
 };
+function sanitizeUser(user) {
+  const sanitizedUser = {
+    ID: user.ID,
+    FIRSTNAME: user.FIRSTNAME,
+    EMAIL: user.EMAIL,
+    PHONE_NUMBER: user.PHONE_NUMBER,
+    IS_ADMIN: user.IS_ADMIN,
+    IS_ACTIVE: user.IS_ACTIVE
+  };
+  return sanitizedUser;
+}
 module.exports = {
   getAllUsers,
   getUserById,
