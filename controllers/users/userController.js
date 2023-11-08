@@ -14,11 +14,11 @@ const getUserById = async (req, res) => {
   try {
     const userId = req.params.id;
     const user = await userModel.getUserById(userId);
-    const sanitizedUsers = users.map(user => sanitizeUser(user));
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
-    res.status(200).json(sanitizedUsers);
+    const sanitizedUser = sanitizeUser(user);
+    res.status(200).json(sanitizedUser);
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: 'An error occurred while fetching the user.' });
@@ -28,10 +28,10 @@ const getUserByEmail = async (req, res) => {
   try {
     const email = req.params.email;
     const user = await userModel.getUserByEmail(email);
-    const sanitizedUser = sanitizeUser(user);
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
+    const sanitizedUser = sanitizeUser(user);
     res.status(200).json(sanitizedUser);
   } catch (error) {
     console.log(error);
