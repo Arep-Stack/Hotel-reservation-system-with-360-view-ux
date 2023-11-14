@@ -1,8 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const userRoutes = require('./routes/users/userRoutes');
+const cors = require('cors');
 
 const app = express();
+
+app.use(cors({
+  origin: "*"
+}))
 
 // Middleware
 app.use(bodyParser.json());
