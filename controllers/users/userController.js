@@ -74,7 +74,9 @@ function sanitizeUser(user) {
   const sanitizedUser = {
     ID: user.ID,
     FIRSTNAME: user.FIRSTNAME,
+    LASTNAME: user.LASTNAME,
     EMAIL: user.EMAIL,
+    ADDRESS: user.ADDRESS,
     PHONE_NUMBER: user.PHONE_NUMBER,
     IS_ADMIN: user.IS_ADMIN,
     IS_ACTIVE: user.IS_ACTIVE
