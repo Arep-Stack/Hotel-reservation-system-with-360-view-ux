@@ -5,8 +5,8 @@ const createUser = async (newUser) => {
   try {
     const query = `
       INSERT INTO "USERS" 
-      ("FIRSTNAME", "LASTNAME", "EMAIL", "PHONE_NUMBER", "ADDRESS", "PASSWORD") 
-      VALUES ($1, $2, $3, $4, $5, $6) 
+      ("FIRSTNAME", "LASTNAME", "EMAIL", "PHONE_NUMBER", "ADDRESS", "PASSWORD", "IS_ADMIN") 
+      VALUES ($1, $2, $3, $4, $5, $6, $7) 
       RETURNING *
     `;
     const values = [
@@ -15,7 +15,8 @@ const createUser = async (newUser) => {
       newUser.EMAIL, 
       newUser.PHONE_NUMBER, 
       newUser.ADDRESS, 
-      newUser.PASSWORD
+      newUser.PASSWORD,
+      newUser.IS_ADMIN
     ];
     const result = await db.one(query, values);
     return result;

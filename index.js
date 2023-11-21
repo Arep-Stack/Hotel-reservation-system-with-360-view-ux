@@ -13,7 +13,7 @@ app.use(cors({
 app.use(bodyParser.json());
 
 // Use the routes
-app.use('/api', userRoutes);
+app.use('/v1', userRoutes);
 
 const PORT = process.env.PORT || 3002;
 

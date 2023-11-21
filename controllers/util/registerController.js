@@ -16,12 +16,13 @@ const registerUser = async (req, res) => {
               EMAIL: req.body.EMAIL,
               PHONE_NUMBER: req.body.PHONE_NUMBER,
               ADDRESS: req.body.ADDRESS,
-              PASSWORD: hashedPassword
+              PASSWORD: hashedPassword,
+              IS_ADMIN: req.body.IS_ADMIN
           }
           const user = await userModel.createUser(newUser);
           res.status(201).json({ message: "Successfully registered" });
         } else {
-          res.status(404).json({ message: "The email already registered" });
+          res.status(404).json({ message: "The email already is registered" });
         }
       }else{
         res.status(404).json({ message: "The email is invalid" });
