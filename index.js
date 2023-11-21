@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 
 // Use the routes
 app.use('/v1', userRoutes);
-app.use('/api', authRoutes);
+app.use('/v1', authRoutes);
 
 const PORT = process.env.PORT || 3002;
 

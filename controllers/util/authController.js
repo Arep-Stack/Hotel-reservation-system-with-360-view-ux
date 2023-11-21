@@ -23,8 +23,12 @@ const authenticate = async (req, res) => {
     }
 };
 function authenticateToken(req, res, next) {
-    const token = req.header('Authorization');
-    if (!token) return res.status(401).json({ message: 'Access denied' });
+    const authorizationHeader  = req.header('Authorization');
+    if (!authorizationHeader) return res.status(401).json({ message: 'Access denied' });
+
+    const [prefix, token] = authorizationHeader.split(' ');
+
+    if (prefix !== 'Bearer' || !token) return res.status(401).json({ message: 'Invalid token format' });
 
     jwt.verify(token, secretKey, (err, user) => {
         if (err) return res.status(403).json({ message: 'Invalid token' });
