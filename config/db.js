@@ -50,6 +50,11 @@ const createTableQuery = `
     "PERSONS" INT,
     "AMENITIES" VARCHAR(255)[]
   );
+  CREATE TABLE IF NOT EXISTS "IMAGES" (
+    "ID" VARCHAR(255) UNIQUE NOT NULL,
+    "FILE_NAME" VARCHAR(255) NOT NULL,
+    "PATH" VARCHAR(255) NOT NULL
+  );
 `;
 // Create the table
 db.none(createTableQuery)
