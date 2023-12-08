@@ -1,6 +1,7 @@
 const pgp = require('pg-promise')();
 const dbConfig = {
-  connectionString: `postgres://hotel_reservation_user:dKZJHVh3VWImESTJ8LyZmEZ3tThukkLj@dpg-cl4v31k72pts739nqkg0-a.singapore-postgres.render.com/hotel_reservation`,
+  connectionString: `postgres://hotel_reservation_gdll_user:bVcIrlo6qX9ZiibILgnqQHNZFHq5Cyuv@dpg-clpebuhoh6hc73c1pn5g-a.singapore-postgres.render.com/hotel_reservation_gdll`,
+  
   // user: 'postgres',
   // host: 'localhost',
   // database: 'hotel_reservation',

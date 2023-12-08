@@ -11,11 +11,10 @@ const postImage = async (req, res) => {
       ID: `${prefix}-${originalname}`
     }
     const result = await imageModel.uplaodImage(request)
-    console.log(result)
     if ( !result.ID ) {
       return res.status(404).json({ error: 'Uploading Image failed' });
     }else {
-      return res.status(404).json({ error: 'Image upload' });
+      return res.status(201).json(result);
     }
   } catch (error) {
     console.log(error);
