@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const userRoutes = require('./routes/users/userRoutes');
 const serviceRoutes = require('./routes/services/servicesRoutes');
+const imageRoutes  = require('./routes/utils/ImageRoutes');
 const cors = require('cors');
 
 
@@ -17,6 +18,7 @@ app.use(bodyParser.json());
 // Use the routes
 app.use('/v1', userRoutes);
 app.use('/v1', serviceRoutes);
+app.use('/v1', imageRoutes);
 
 const PORT = process.env.PORT || 3002;
 
