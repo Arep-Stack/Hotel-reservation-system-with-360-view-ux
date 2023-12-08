@@ -1,13 +1,30 @@
 const imageModel = require('../../models/utils/ImageModel');
+const cloudinary = require('cloudinary').v2;
+const cloudinaryConfig = require('../../config/cloudinaryConfig');
+
+cloudinary.config(cloudinaryConfig);
 
 const postImage = async (req, res) => {
   try {
-    const { originalname, path } = req.file;
+    const { originalname, buffer } = req.file;
     const generateRandomWord = () => Math.random().toString(36).substr(2, 4).toUpperCase();
     const prefix = generateRandomWord();
+    const cloudinaryUpload = () => {
+      return new Promise((resolve, reject) => {
+        cloudinary.uploader.upload_stream((error, result) => {
+          if (error) {
+            console.error(error);
+            reject(error);
+          } else {
+            resolve(result.url);
+          }
+        }).end(buffer);
+      });
+    };
+    const cloudinaryUrl = await cloudinaryUpload();
     const request = {
       FILLE_NAME: originalname , 
-      PATH: path,
+      PATH: cloudinaryUrl,
       ID: `${prefix}-${originalname}`
     }
     const result = await imageModel.uplaodImage(request)
