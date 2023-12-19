@@ -4,6 +4,8 @@ const userRoutes = require('./routes/users/userRoutes');
 const serviceRoutes = require('./routes/services/servicesRoutes');
 const imageRoutes  = require('./routes/utils/ImageRoutes');
 const reservationRoutes  = require('./routes/reservations/reservationsRoutes');
+const paypal = require('paypal-rest-sdk');
+const paymentRoutes  = require('./routes/payment/paymentRoutes');
 const cors = require('cors');
 
 
@@ -21,8 +23,12 @@ app.use('/v1', userRoutes);
 app.use('/v1', serviceRoutes);
 app.use('/v1', imageRoutes);
 app.use('/v1', reservationRoutes);
+app.use('/v1', paymentRoutes);
 
 const PORT = process.env.PORT || 3002;
+
+// Paypal
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

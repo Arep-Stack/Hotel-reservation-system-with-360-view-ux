@@ -1,15 +1,15 @@
 const pgp = require('pg-promise')();
 const dbConfig = {
-  connectionString: `postgres://hotel_reservation_gdll_user:bVcIrlo6qX9ZiibILgnqQHNZFHq5Cyuv@dpg-clpebuhoh6hc73c1pn5g-a.singapore-postgres.render.com/hotel_reservation_gdll`,
+  //connectionString: `postgres://hotel_reservation_gdll_user:bVcIrlo6qX9ZiibILgnqQHNZFHq5Cyuv@dpg-clpebuhoh6hc73c1pn5g-a.singapore-postgres.render.com/hotel_reservation_gdll`,
   
-  // user: 'postgres',
-  // host: 'localhost',
-  // database: 'hotel_reservation',
-  // password: 'postgres',
-  // port: 5432,
-  ssl: {
-    rejectUnauthorized: false
-  }
+  user: 'postgres',
+  host: 'localhost',
+  database: 'hotel_reservation',
+  password: 'Css12345@',
+  port: 5432,
+  // ssl: {
+  //   rejectUnauthorized: false
+  // }
 };
 const db = pgp(dbConfig);
 // Define a table schema
