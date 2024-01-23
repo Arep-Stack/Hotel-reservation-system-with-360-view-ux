@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const userRoutes = require('./routes/users/userRoutes');
 const serviceRoutes = require('./routes/services/servicesRoutes');
 const imageRoutes  = require('./routes/utils/ImageRoutes');
+const reservationRoutes  = require('./routes/reservations/reservationsRoutes');
 const cors = require('cors');
 
 
@@ -19,6 +20,7 @@ app.use(bodyParser.json());
 app.use('/v1', userRoutes);
 app.use('/v1', serviceRoutes);
 app.use('/v1', imageRoutes);
+app.use('/v1', reservationRoutes);
 
 const PORT = process.env.PORT || 3002;
 
