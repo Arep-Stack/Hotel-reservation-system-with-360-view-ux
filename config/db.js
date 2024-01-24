@@ -1,15 +1,15 @@
 const pgp = require('pg-promise')();
 const dbConfig = {
-  //connectionString: `postgres://hotel_reservation_gdll_user:bVcIrlo6qX9ZiibILgnqQHNZFHq5Cyuv@dpg-clpebuhoh6hc73c1pn5g-a.singapore-postgres.render.com/hotel_reservation_gdll`,
+  connectionString: `postgres://hotel_reservation_gdll_user:bVcIrlo6qX9ZiibILgnqQHNZFHq5Cyuv@dpg-clpebuhoh6hc73c1pn5g-a.singapore-postgres.render.com/hotel_reservation_gdll`,
   
-  user: 'postgres',
-  host: 'localhost',
-  database: 'hotel_reservation',
-  password: 'Css12345@',
-  port: 5432,
-  // ssl: {
-  //   rejectUnauthorized: false
-  // }
+  // user: 'postgres',
+  // host: 'localhost',
+  // database: 'hotel_reservation',
+  // password: 'postgres',
+  // port: 5432,
+   ssl: {
+     rejectUnauthorized: false
+   }
 };
 const db = pgp(dbConfig);
 // Define a table schema
@@ -30,16 +30,19 @@ const createTableQuery = `
   CREATE TABLE IF NOT EXISTS "RESERVATIONS" (
     "ID" SERIAL PRIMARY KEY,
     "USER_ID" INT NOT NULL,
-    "AMENITY_ID" INT NOT NULL,
-    "PAYMENT_ID" INT NOT NULL,
-    "DESCRIPTION" VARCHAR(255)
+    "SERVICE_ID" INT NOT NULL,
+    "STATUS" VARCHAR(255) NOT NULL,
+    "DESCRIPTION" VARCHAR(255),
+    "START_DATE" DATE NOT NULL,
+    "END_DATE" DATE NOT NULL,
+    "AMOUNT" DOUBLE PRECISION NOT NULL
   );
   CREATE TABLE IF NOT EXISTS "PAYMENTS" (
     "ID" SERIAL PRIMARY KEY,
+    "PAYMENT_CODE" VARCHAR(255) NOT NULL,
     "USER_ID" INT NOT NULL,
     "TYPE" VARCHAR(255) NOT NULL,
-    "STATUS" VARCHAR(255) NOT NULL,
-    "AMOUNT" DOUBLE PRECISION NOT NULL
+    "CONTENT" JSON NOT NULL
   );
   CREATE TABLE IF NOT EXISTS "SERVICES" (
     "ID" SERIAL PRIMARY KEY,

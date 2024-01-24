@@ -48,17 +48,23 @@ const updateReservation = async (reservationId, updatereservation) => {
         const query = `
             UPDATE "RESERVATIONS"
             SET "USER_ID" = COALESCE($1, "USER_ID"),
-                "AMENITY_ID" = COALESCE($2, "AMENITY_ID"),
-                "PAYMENT_ID" = COALESCE($3, "PAYMENT_ID"),
-                "DESCRIPTION" = COALESCE($4, "DESCRIPTION")
-            WHERE "ID" = $5
+                "SERVICE_ID" = COALESCE($2, "SERVICE_ID"),
+                "STATUS" = COALESCE($3, "STATUS"),
+                "DESCRIPTION" = COALESCE($4, "DESCRIPTION"),
+                "START_DATE" = COALESCE($5, "START_DATE"),
+                "END_DATE" = COALESCE($6, "END_DATE"),
+                "AMOUNT" = COALESCE($7, "AMOUNT")
+            WHERE "ID" = $8
             RETURNING *
         `;
         const values = [
             updatereservation.USER_ID,
-            updatereservation.AMENITY_ID,
-            updatereservation.PAYMENT_ID,
+            updatereservation.SERVICE_ID,
+            updatereservation.STATUS,
             updatereservation.DESCRIPTION,
+            updatereservation.START_DATE,
+            updatereservation.END_DATE,
+            updatereservation.AMOUNT,
             reservationId
         ];
         const result = await db.one(query, values);
