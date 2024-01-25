@@ -11,7 +11,7 @@ package-lock.json
 yarn.lock
 
 # Ignore the .env file, which may contain sensitive information
-.env
+#.env
 
 # Ignore any build output or dist directories
 /dist/
