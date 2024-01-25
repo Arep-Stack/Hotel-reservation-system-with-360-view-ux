@@ -1,7 +1,9 @@
+require('dotenv').config();
+
 const cloudinaryConfig = {
-  cloud_name: 'deqdo01op',
-  api_key: '323449551644819',
-  api_secret: 'pB_eSKOfQuUi84D9L8Siwcxk4b4',
+  cloud_name: process.env.CLOUDNIARY_NAME,
+  api_key: process.env.CLOUDNIARY_API_KEY,
+  api_secret: process.env.CLOUDNIARY_API_SECRET,
   secure: true
 };
 

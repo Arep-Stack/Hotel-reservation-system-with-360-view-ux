@@ -1,6 +1,8 @@
 const pgp = require('pg-promise')();
+require('dotenv').config();
+
 const dbConfig = {
-  connectionString: `postgres://hotel_reservation_gdll_user:bVcIrlo6qX9ZiibILgnqQHNZFHq5Cyuv@dpg-clpebuhoh6hc73c1pn5g-a.singapore-postgres.render.com/hotel_reservation_gdll`,
+  connectionString: process.env.DATABASE_CONNECTION,
   
   // user: 'postgres',
   // host: 'localhost',
@@ -33,8 +35,8 @@ const createTableQuery = `
     "SERVICE_ID" INT NOT NULL,
     "STATUS" VARCHAR(255) NOT NULL,
     "DESCRIPTION" VARCHAR(255),
-    "START_DATE" DATE NOT NULL,
-    "END_DATE" DATE NOT NULL,
+    "START_DATE" TIMESTAMPTZ NOT NULL,
+    "END_DATE" TIMESTAMPTZ NOT NULL,
     "AMOUNT" DOUBLE PRECISION NOT NULL
   );
   CREATE TABLE IF NOT EXISTS "PAYMENTS" (

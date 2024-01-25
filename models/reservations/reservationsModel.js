@@ -4,15 +4,18 @@ const createReservation = async (newReservation) => {
     try {
         const query = `
         INSERT INTO "RESERVATIONS" 
-        ("USER_ID", "AMENITY_ID", "PAYMENT_ID", "DESCRIPTION") 
-        VALUES ($1, $2, $3, $4) 
+        ("USER_ID", "SERVICE_ID", "STATUS", "DESCRIPTION", "START_DATE", "END_DATE", "AMOUNT") 
+        VALUES ($1, $2, $3, $4, $5, $6, $7) 
         RETURNING *
         `;
         const values = [
             newReservation.USER_ID, 
-            newReservation.AMENITY_ID, 
-            newReservation.PAYMENT_ID, 
-            newReservation.DESCRIPTION
+            newReservation.SERVICE_ID, 
+            newReservation.STATUS, 
+            newReservation.DESCRIPTION,
+            newReservation.START_DATE,
+            newReservation.END_DATE,
+            newReservation.AMOUNT
         ];
         const result = await db.one(query, values);
         return result;
@@ -30,13 +33,13 @@ async function getAllReservations() {
         throw error;
     }
 }
-const getReservationById = async (serviceId) => {
+const getReservationById = async (reservationId) => {
     try {
         const query = `
         SELECT * FROM "RESERVATIONS" 
         WHERE "ID" = $1
         `;
-        const values = [serviceId];
+        const values = [reservationId];
         const result = await db.oneOrNone(query, values);
         return result
     } catch (error) {
