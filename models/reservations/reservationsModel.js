@@ -5,7 +5,7 @@ const createReservation = async (newReservation) => {
         const query = `
         INSERT INTO "RESERVATIONS" 
         ("USER_ID", "SERVICE_ID", "STATUS", "DESCRIPTION", "START_DATE", "END_DATE", "AMOUNT", "BALANCE") 
-        VALUES ($1, $2, $3, $4, $5, $6, $7) 
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8) 
         RETURNING *
         `;
         const values = [
