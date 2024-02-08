@@ -4,8 +4,8 @@ const createReservation = async (newReservation) => {
     try {
         const query = `
         INSERT INTO "RESERVATIONS" 
-        ("USER_ID", "SERVICE_ID", "STATUS", "DESCRIPTION", "START_DATE", "END_DATE", "AMOUNT") 
-        VALUES ($1, $2, $3, $4, $5, $6, $7) 
+        ("USER_ID", "SERVICE_ID", "STATUS", "DESCRIPTION", "START_DATE", "END_DATE", "AMOUNT", "BALANCE") 
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8) 
         RETURNING *
         `;
         const values = [
@@ -15,7 +15,8 @@ const createReservation = async (newReservation) => {
             newReservation.DESCRIPTION,
             newReservation.START_DATE,
             newReservation.END_DATE,
-            newReservation.AMOUNT
+            newReservation.AMOUNT,
+            newReservation.BALANCE
         ];
         const result = await db.one(query, values);
         return result;
@@ -56,8 +57,9 @@ const updateReservation = async (reservationId, updatereservation) => {
                 "DESCRIPTION" = COALESCE($4, "DESCRIPTION"),
                 "START_DATE" = COALESCE($5, "START_DATE"),
                 "END_DATE" = COALESCE($6, "END_DATE"),
-                "AMOUNT" = COALESCE($7, "AMOUNT")
-            WHERE "ID" = $8
+                "AMOUNT" = COALESCE($7, "AMOUNT"),
+                "BALANCE" = COALESCE($8, "BALANCE")
+            WHERE "ID" = $9
             RETURNING *
         `;
         const values = [
@@ -68,6 +70,7 @@ const updateReservation = async (reservationId, updatereservation) => {
             updatereservation.START_DATE,
             updatereservation.END_DATE,
             updatereservation.AMOUNT,
+            updatereservation.BALANCE,
             reservationId
         ];
         const result = await db.one(query, values);

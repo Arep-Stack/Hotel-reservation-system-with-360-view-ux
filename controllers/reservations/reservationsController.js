@@ -1,7 +1,7 @@
 const reservationsModel = require('../../models/reservations/reservationsModel');
 
 const postReservation = async (req, res) => {
-    const propertiesToValidate = ["USER_ID", "SERVICE_ID", "STATUS", "START_DATE", "END_DATE", "AMOUNT"];
+    const propertiesToValidate = ["USER_ID", "SERVICE_ID", "STATUS", "START_DATE", "END_DATE", "AMOUNT", "BALANCE"];
     try {
         const validationMessage = validateRequestProperties(req.body,propertiesToValidate);
         if ( validationMessage === "PASS" ) {
@@ -12,7 +12,8 @@ const postReservation = async (req, res) => {
                 DESCRIPTION: req.body.DESCRIPTION,
                 START_DATE: req.body.START_DATE,
                 END_DATE: req.body.END_DATE,
-                AMOUNT: req.body.AMOUNT
+                AMOUNT: req.body.AMOUNT,
+                BALANCE: req.body.BALANCE
             }
             const reservation = await reservationsModel.createReservation(newReservation);
             if (reservation.ID) {
@@ -56,7 +57,8 @@ const putReservation = async (req, res) => {
         USER_ID: req.body.USER_ID,
         AMENITY_ID: req.body.AMENITY_ID,
         PAYMENT_ID: req.body.PAYMENT_ID,
-        DESCRIPTION: req.body.DESCRIPTION
+        DESCRIPTION: req.body.DESCRIPTION,
+        BALANCE: req.body.BALANCE
     };
     try {
         const reservation = await reservationsModel.updateReservation(reservationId, updatedReservation);
@@ -87,9 +89,6 @@ function validateRequestProperties(requestBody, properties) {
         } 
     }
     return "PASS";
-}
-function validateDateRange(startDate, endDate) {
-
 }
 module.exports = {
     postReservation,
