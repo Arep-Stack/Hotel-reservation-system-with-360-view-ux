@@ -3,11 +3,15 @@ const db = require('../../config/db');
 const createReservation = async (newReservation) => {
     try {
         const query = `
-        INSERT INTO "RESERVATIONS" 
-        ("USER_ID", "SERVICE_ID", "STATUS", "DESCRIPTION", "START_DATE", "END_DATE", "AMOUNT", "PAYMENT_HISTORY", "BALANCE") 
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) 
-        RETURNING *
+            INSERT INTO "RESERVATIONS" 
+            ("USER_ID", "SERVICE_ID", "STATUS", "DESCRIPTION", "START_DATE", "END_DATE", "AMOUNT", "BALANCE", "PAYMENT_HISTORY") 
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9::jsonb[]) -- Cast as JSONB array
+            RETURNING *
         `;
+        
+        // Prepare the payment history as a JSONB array string
+        const paymentHistoryArray = JSON.stringify(newReservation.PAYMENT_HISTORY);
+
         const values = [
             newReservation.USER_ID, 
             newReservation.SERVICE_ID, 
@@ -16,9 +20,10 @@ const createReservation = async (newReservation) => {
             newReservation.START_DATE,
             newReservation.END_DATE,
             newReservation.AMOUNT,
-            newReservation.PAYMENT_HISTORY,
-            newReservation.BALANCE
+            newReservation.BALANCE,
+            [paymentHistoryArray]  // Wrap in an array to ensure it's treated as a single JSONB array parameter
         ];
+
         const result = await db.one(query, values);
         return result;
     } catch (error) {
@@ -64,6 +69,7 @@ const updateReservation = async (reservationId, updatereservation) => {
             WHERE "ID" = $10
             RETURNING *
         `;
+        const paymentHistoryArray = JSON.stringify(updatereservation.PAYMENT_HISTORY);
         const values = [
             updatereservation.USER_ID,
             updatereservation.SERVICE_ID,
@@ -72,7 +78,7 @@ const updateReservation = async (reservationId, updatereservation) => {
             updatereservation.START_DATE,
             updatereservation.END_DATE,
             updatereservation.AMOUNT,
-            updatereservation.PAYMENT_HISTORY,
+            [paymentHistoryArray],
             updatereservation.BALANCE,
             reservationId
         ];
