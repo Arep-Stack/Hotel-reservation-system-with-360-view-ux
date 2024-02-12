@@ -1,7 +1,7 @@
 const reservationsModel = require('../../models/reservations/reservationsModel');
 
 const postReservation = async (req, res) => {
-    const propertiesToValidate = ["USER_ID", "SERVICE_ID", "STATUS", "START_DATE", "END_DATE", "AMOUNT", "BALANCE"];
+    const propertiesToValidate = ["USER_ID", "SERVICE_ID", "STATUS", "START_DATE", "END_DATE", "AMOUNT"];
     try {
         const validationMessage = validateRequestProperties(req.body,propertiesToValidate);
         if ( validationMessage === "PASS" ) {
@@ -13,6 +13,7 @@ const postReservation = async (req, res) => {
                 START_DATE: req.body.START_DATE,
                 END_DATE: req.body.END_DATE,
                 AMOUNT: req.body.AMOUNT,
+                PAYMENT_HISTORY: req.body.PAYMENT_HISTORY,
                 BALANCE: req.body.BALANCE
             }
             const reservation = await reservationsModel.createReservation(newReservation);
@@ -58,6 +59,7 @@ const putReservation = async (req, res) => {
         AMENITY_ID: req.body.AMENITY_ID,
         PAYMENT_ID: req.body.PAYMENT_ID,
         DESCRIPTION: req.body.DESCRIPTION,
+        PAYMENT_HISTORY: req.body.PAYMENT_HISTORY,
         BALANCE: req.body.BALANCE
     };
     try {

@@ -38,7 +38,8 @@ const createTableQuery = `
     "START_DATE" TIMESTAMPTZ NOT NULL,
     "END_DATE" TIMESTAMPTZ NOT NULL,
     "AMOUNT" DOUBLE PRECISION NOT NULL,
-    "BALANCE" DOUBLE PRECISION DEFAULT 0
+    "BALANCE" DOUBLE PRECISION DEFAULT 0,
+    "PAYMENT_HISTORY" JSONB[]
   );
   CREATE TABLE IF NOT EXISTS "PAYMENTS" (
     "ID" SERIAL PRIMARY KEY,
@@ -63,6 +64,10 @@ const createTableQuery = `
     "PATH" VARCHAR(255) NOT NULL
   );
 `;
+// const alterTableQuery = `
+//   ALTER TABLE "RESERVATIONS"
+//   ADD COLUMN "PAYMENT_HISTORY" JSONB[];
+// `;
 // Create the table
 db.none(createTableQuery)
   .then(() => {
