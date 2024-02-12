@@ -69,7 +69,6 @@ const updateReservation = async (reservationId, updatereservation) => {
             WHERE "ID" = $10
             RETURNING *
         `;
-        const paymentHistoryArray = JSON.stringify(updatereservation.PAYMENT_HISTORY);
         const values = [
             updatereservation.USER_ID,
             updatereservation.SERVICE_ID,
@@ -78,7 +77,7 @@ const updateReservation = async (reservationId, updatereservation) => {
             updatereservation.START_DATE,
             updatereservation.END_DATE,
             updatereservation.AMOUNT,
-            [paymentHistoryArray],
+            updatereservation.PAYMENT_HISTORY,
             updatereservation.BALANCE,
             reservationId
         ];
