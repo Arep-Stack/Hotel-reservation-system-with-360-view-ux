@@ -70,8 +70,9 @@ const updateReservation = async (reservationId, updatereservation) => {
             RETURNING *
         `;
         
-        const paymentHistoryArray = JSON.stringify(updatereservation.PAYMENT_HISTORY);
+        //const paymentHistoryArray = JSON.stringify(updatereservation.PAYMENT_HISTORY);
         // Ensure that the JSON array is passed in the correct format
+        
         const values = [
             updatereservation.USER_ID,
             updatereservation.SERVICE_ID,
@@ -80,7 +81,7 @@ const updateReservation = async (reservationId, updatereservation) => {
             updatereservation.START_DATE,
             updatereservation.END_DATE,
             updatereservation.AMOUNT,
-            [paymentHistoryArray], // Remove extra square brackets here
+            updatereservation.PAYMENT_HISTORY,
             updatereservation.BALANCE,
             reservationId
         ];
