@@ -64,11 +64,14 @@ const updateReservation = async (reservationId, updatereservation) => {
                 "START_DATE" = COALESCE($5, "START_DATE"),
                 "END_DATE" = COALESCE($6, "END_DATE"),
                 "AMOUNT" = COALESCE($7, "AMOUNT"),
-                "PAYMENT_HISTORY" = COALESCE($8, "PAYMENT_HISTORY"),
+                "PAYMENT_HISTORY" = COALESCE($8::jsonb[], "PAYMENT_HISTORY"),
                 "BALANCE" = COALESCE($9, "BALANCE")
             WHERE "ID" = $10
             RETURNING *
         `;
+        
+        const paymentHistoryArray = JSON.stringify(updatereservation.PAYMENT_HISTORY);
+        // Ensure that the JSON array is passed in the correct format
         const values = [
             updatereservation.USER_ID,
             updatereservation.SERVICE_ID,
@@ -77,16 +80,18 @@ const updateReservation = async (reservationId, updatereservation) => {
             updatereservation.START_DATE,
             updatereservation.END_DATE,
             updatereservation.AMOUNT,
-            updatereservation.PAYMENT_HISTORY,
+            [paymentHistoryArray], // Remove extra square brackets here
             updatereservation.BALANCE,
             reservationId
         ];
+        
         const result = await db.one(query, values);
         return result;
     } catch (error) {
         throw error;
     }
 };
+
 const deleteReservation = async (reservationId) => {
     try {
       const existingReservation = await getReservationById(reservationId);
