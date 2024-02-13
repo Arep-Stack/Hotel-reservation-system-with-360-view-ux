@@ -5,12 +5,12 @@ const createReservation = async (newReservation) => {
         const query = `
             INSERT INTO "RESERVATIONS" 
             ("USER_ID", "SERVICE_ID", "STATUS", "DESCRIPTION", "START_DATE", "END_DATE", "AMOUNT", "BALANCE", "PAYMENT_HISTORY") 
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9::jsonb[]) -- Cast as JSONB array
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9::jsonb[])
             RETURNING *
         `;
         
         // Prepare the payment history as a JSONB array string
-        const paymentHistoryArray = JSON.stringify(newReservation.PAYMENT_HISTORY);
+        //const paymentHistoryArray = JSON.stringify(newReservation.PAYMENT_HISTORY);
 
         const values = [
             newReservation.USER_ID, 
@@ -21,7 +21,7 @@ const createReservation = async (newReservation) => {
             newReservation.END_DATE,
             newReservation.AMOUNT,
             newReservation.BALANCE,
-            [paymentHistoryArray]  // Wrap in an array to ensure it's treated as a single JSONB array parameter
+            newReservation.PAYMENT_HISTORY
         ];
 
         const result = await db.one(query, values);
