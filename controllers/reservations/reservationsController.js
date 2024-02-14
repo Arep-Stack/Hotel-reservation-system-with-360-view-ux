@@ -56,11 +56,14 @@ const putReservation = async (req, res) => {
     const reservationId = req.params.id;
     const updatedReservation = {
         USER_ID: req.body.USER_ID,
-        AMENITY_ID: req.body.AMENITY_ID,
-        PAYMENT_ID: req.body.PAYMENT_ID,
+        SERVICE_ID: req.body.SERVICE_ID,
+        STATUS: req.body.STATUS,
         DESCRIPTION: req.body.DESCRIPTION,
-        PAYMENT_HISTORY: req.body.PAYMENT_HISTORY,
-        BALANCE: req.body.BALANCE
+        START_DATE: req.body.START_DATE,
+        END_DATE: req.body.END_DATE,
+        AMOUNT: req.body.AMOUNT,
+        BALANCE: req.body.BALANCE,
+        PAYMENT_HISTORY: req.body.PAYMENT_HISTORY
     };
     try {
         const reservation = await reservationsModel.updateReservation(reservationId, updatedReservation);
