@@ -22,7 +22,7 @@ const registerUser = async (req, res) => {
           const user = await userModel.createUser(newUser);
           res.status(201).json({ message: "Successfully registered" });
         } else {
-          res.status(404).json({ message: "The email already is registered" });
+          res.status(404).json({ message: "The email is already registered" });
         }
       }else{
         res.status(404).json({ message: "The email is invalid" });
