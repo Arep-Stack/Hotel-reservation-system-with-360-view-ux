@@ -4,8 +4,8 @@ const createReservation = async (newReservation) => {
     try {
         const query = `
             INSERT INTO "RESERVATIONS" 
-            ("USER_ID", "SERVICE_ID", "STATUS", "DESCRIPTION", "START_DATE", "END_DATE", "AMOUNT", "BALANCE", "PAYMENT_HISTORY") 
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9::jsonb[])
+            ("USER_ID", "SERVICE_ID", "STATUS", "DESCRIPTION", "START_DATE", "END_DATE", "AMOUNT", "BALANCE", "PAYMENT_HISTORY", "IS_DOWNPAYMENT_PAID") 
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9::jsonb[], $10)
             RETURNING *
         `;
         
@@ -21,7 +21,8 @@ const createReservation = async (newReservation) => {
             newReservation.END_DATE,
             newReservation.AMOUNT,
             newReservation.BALANCE,
-            newReservation.PAYMENT_HISTORY
+            newReservation.PAYMENT_HISTORY,
+            newReservation.IS_DOWNPAYMENT_PAID
         ];
 
         const result = await db.one(query, values);
@@ -65,8 +66,9 @@ const updateReservation = async (reservationId, updatereservation) => {
                 "END_DATE" = COALESCE($6, "END_DATE"),
                 "AMOUNT" = COALESCE($7, "AMOUNT"),
                 "PAYMENT_HISTORY" = COALESCE($8::jsonb[], "PAYMENT_HISTORY"),
-                "BALANCE" = COALESCE($9, "BALANCE")
-            WHERE "ID" = $10
+                "BALANCE" = COALESCE($9, "BALANCE"),
+                "IS_DOWNPAYMENT_PAID" = COALESCE($10, "IS_DOWNPAYMENT_PAID")
+            WHERE "ID" = $11
             RETURNING *
         `;
         
@@ -83,6 +85,7 @@ const updateReservation = async (reservationId, updatereservation) => {
             updatereservation.AMOUNT,
             updatereservation.PAYMENT_HISTORY,
             updatereservation.BALANCE,
+            updatereservation.IS_DOWNPAYMENT_PAID,
             reservationId
         ];
         

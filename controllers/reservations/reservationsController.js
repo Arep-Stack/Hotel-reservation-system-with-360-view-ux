@@ -14,7 +14,8 @@ const postReservation = async (req, res) => {
                 END_DATE: req.body.END_DATE,
                 AMOUNT: req.body.AMOUNT,
                 PAYMENT_HISTORY: req.body.PAYMENT_HISTORY,
-                BALANCE: req.body.BALANCE
+                BALANCE: req.body.BALANCE,
+                IS_DOWNPAYMENT_PAID: req.body.IS_DOWNPAYMENT_PAID
             }
             const reservation = await reservationsModel.createReservation(newReservation);
             if (reservation.ID) {
@@ -63,7 +64,8 @@ const putReservation = async (req, res) => {
         END_DATE: req.body.END_DATE,
         AMOUNT: req.body.AMOUNT,
         BALANCE: req.body.BALANCE,
-        PAYMENT_HISTORY: req.body.PAYMENT_HISTORY
+        PAYMENT_HISTORY: req.body.PAYMENT_HISTORY,
+        IS_DOWNPAYMENT_PAID: req.body.IS_DOWNPAYMENT_PAID
     };
     try {
         const reservation = await reservationsModel.updateReservation(reservationId, updatedReservation);

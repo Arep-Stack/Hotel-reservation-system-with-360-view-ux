@@ -39,7 +39,8 @@ const createTableQuery = `
     "END_DATE" TIMESTAMPTZ NOT NULL,
     "AMOUNT" DOUBLE PRECISION NOT NULL,
     "BALANCE" DOUBLE PRECISION DEFAULT 0,
-    "PAYMENT_HISTORY" JSONB[]
+    "PAYMENT_HISTORY" JSONB[],
+    "IS_DOWNPAYMENT_PAID" bool
   );
   CREATE TABLE IF NOT EXISTS "PAYMENTS" (
     "ID" SERIAL PRIMARY KEY,
@@ -66,7 +67,7 @@ const createTableQuery = `
 `;
 // const alterTableQuery = `
 //   ALTER TABLE "RESERVATIONS"
-//   ADD COLUMN "PAYMENT_HISTORY" JSONB[];
+//   ADD COLUMN "IS_DOWNPAYMENT_PAID" bool;
 // `;
 // Create the table
 db.none(createTableQuery)
