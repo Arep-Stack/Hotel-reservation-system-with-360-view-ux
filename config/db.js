@@ -57,7 +57,8 @@ const createTableQuery = `
     "PRICE" DOUBLE PRECISION NOT NULL,
     "IMAGE" VARCHAR(255),
     "PERSONS" INT,
-    "AMENITIES" VARCHAR(255)[]
+    "AMENITIES" VARCHAR(255)[],
+    "IS_DELETED" bool NOT NULL DEFAULT FALSE
   );
   CREATE TABLE IF NOT EXISTS "IMAGES" (
     "ID" VARCHAR(255) UNIQUE NOT NULL,
@@ -66,8 +67,8 @@ const createTableQuery = `
   );
 `;
 // const alterTableQuery = `
-//   ALTER TABLE "RESERVATIONS"
-//   ADD COLUMN "IS_DOWNPAYMENT_PAID" bool;
+//   ALTER TABLE "SERVICES"
+//   ADD COLUMN "IS_DELETED" bool NOT NULL DEFAULT FALSE;
 // `;
 // Create the table
 db.none(createTableQuery)

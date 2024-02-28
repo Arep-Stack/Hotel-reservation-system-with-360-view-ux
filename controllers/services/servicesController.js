@@ -15,7 +15,8 @@ const postService = async (req, res) => {
                     PRICE: req.body.PRICE,
                     IMAGE: req.body.IMAGE,
                     PERSONS: req.body.PERSONS,
-                    AMENITIES: req.body.AMENITIES
+                    AMENITIES: req.body.AMENITIES,
+                    IS_DELETED: req.body.IS_DELETED
                 }
                 const service = await servicesModel.createServices(newService);
                 if (service.ID) {
@@ -63,7 +64,8 @@ const putService = async (req, res) => {
         PRICE: req.body.PRICE,
         IMAGE: req.body.IMAGE,
         PERSONS: req.body.PERSONS,
-        AMENITIES: req.body.AMENITIES
+        AMENITIES: req.body.AMENITIES,
+        IS_DELETED: req.body.IS_DELETED
     };
     try {
         const service = await servicesModel.updateServices(serviceId, updatedService);

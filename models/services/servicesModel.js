@@ -4,8 +4,8 @@ const createServices = async (newService) => {
     try {
         const query = `
         INSERT INTO "SERVICES" 
-        ("NAME", "TYPE", "QUANTITY", "PRICE", "IMAGE", "PERSONS","AMENITIES") 
-        VALUES ($1, $2, $3, $4, $5, $6, $7) 
+        ("NAME", "TYPE", "QUANTITY", "PRICE", "IMAGE", "PERSONS","AMENITIES", "IS_DELETED") 
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8) 
         RETURNING *
         `;
         const values = [
@@ -15,7 +15,8 @@ const createServices = async (newService) => {
             newService.PRICE, 
             newService.IMAGE, 
             newService.PERSONS, 
-            newService.AMENITIES
+            newService.AMENITIES,
+            newService.IS_DELETED
         ];
         const result = await db.one(query, values);
         return result;
@@ -56,8 +57,9 @@ const updateServices = async (serviceId, updatedService) => {
                 "PRICE" = COALESCE($4, "PRICE"),
                 "IMAGE" = COALESCE($5, "IMAGE"),
                 "PERSONS" = COALESCE($6, "PERSONS"),
-                "AMENITIES" = COALESCE($7, "AMENITIES")
-            WHERE "ID" = $8
+                "AMENITIES" = COALESCE($7, "AMENITIES"),
+                "IS_DELETED" = COALESCE($8, "IS_DELETED")
+            WHERE "ID" = $9
             RETURNING *
         `;
         const values = [
@@ -68,6 +70,7 @@ const updateServices = async (serviceId, updatedService) => {
             updatedService.IMAGE,
             updatedService.PERSONS,
             updatedService.AMENITIES,
+            updatedService.IS_DELETED,
             serviceId
         ];
         const result = await db.one(query, values);
