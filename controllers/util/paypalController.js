@@ -38,8 +38,8 @@ const createPayment = async (req, res) => {
                 payment_method: 'paypal',
             },
             redirect_urls: {
-                return_url: 'http://localhost:3002/v1/success',
-                cancel_url: 'http://localhost:3002/v1/cancel',
+                return_url: 'http://localhost:3000/Paypal-Callback',
+                cancel_url: 'http://localhost:3000/Paypal-Callback',
             },
             transactions: [{
                 item_list: {
