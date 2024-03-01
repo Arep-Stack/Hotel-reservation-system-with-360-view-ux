@@ -22,7 +22,7 @@ const postService = async (req, res) => {
                 }
                 const service = await servicesModel.createServices(newService);
                 if (service.ID) {
-                    res.status(201).json({ message: "Successfully created service" });
+                    res.status(201).json({ message: "Successfully created services" });
                 } else {
                     res.status(500).json({ message: "Something went wrong!" });
                 }
