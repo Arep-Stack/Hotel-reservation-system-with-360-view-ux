@@ -44,16 +44,16 @@ const createPayment = async (req, res) => {
             transactions: [{
                 item_list: {
                     items: [{
-                        name: service.NAME,
+                        name: service.TYPE + " balance",
                         sku: `${service.NAME}-${randomCode}`,
-                        price: reservation.AMOUNT,
+                        price: reservation.BALANCE,
                         currency: 'PHP',
                         quantity: 1,
                     }],
                 },
                 amount: {
                     currency: 'PHP',
-                    total: reservation.AMOUNT,
+                    total: reservation.BALANCE,
                 },
                 description: 'This is the payment description.',
             }],
