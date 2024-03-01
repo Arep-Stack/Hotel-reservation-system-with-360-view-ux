@@ -58,6 +58,8 @@ const createTableQuery = `
     "IMAGE" VARCHAR(255),
     "PERSONS" INT,
     "AMENITIES" VARCHAR(255)[],
+    "MAIN360" VARCHAR(255),
+    "OTHER360" VARCHAR(255),
     "IS_DELETED" bool NOT NULL DEFAULT FALSE
   );
   CREATE TABLE IF NOT EXISTS "IMAGES" (
@@ -68,7 +70,7 @@ const createTableQuery = `
 `;
 // const alterTableQuery = `
 //   ALTER TABLE "SERVICES"
-//   ADD COLUMN "IS_DELETED" bool NOT NULL DEFAULT FALSE;
+//   ADD COLUMN "OTHER360" VARCHAR(255);
 // `;
 // Create the table
 db.none(createTableQuery)

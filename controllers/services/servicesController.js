@@ -16,6 +16,8 @@ const postService = async (req, res) => {
                     IMAGE: req.body.IMAGE,
                     PERSONS: req.body.PERSONS,
                     AMENITIES: req.body.AMENITIES,
+                    MAIN360: req.body.MAIN360,
+                    OTHER360: req.body.OTHER360,
                     IS_DELETED: req.body.IS_DELETED
                 }
                 const service = await servicesModel.createServices(newService);
@@ -65,6 +67,8 @@ const putService = async (req, res) => {
         IMAGE: req.body.IMAGE,
         PERSONS: req.body.PERSONS,
         AMENITIES: req.body.AMENITIES,
+        MAIN360: req.body.MAIN360,
+        OTHER360: req.body.OTHER360,
         IS_DELETED: req.body.IS_DELETED
     };
     try {
