@@ -38,8 +38,8 @@ const createPayment = async (req, res) => {
                 payment_method: 'paypal',
             },
             redirect_urls: {
-                return_url: 'http://localhost:3000/Paypal-Callback',
-                cancel_url: 'http://localhost:3000/Paypal-Callback',
+                return_url: 'https://hotel-reservation-system-with-360-view-azure.vercel.app/Paypal-Callback',
+                cancel_url: 'https://hotel-reservation-system-with-360-view-azure.vercel.app/Paypal-Callback',
             },
             transactions: [{
                 item_list: {
