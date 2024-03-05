@@ -14,6 +14,7 @@ paypal.configure({
 });
 
 const createPayment = async (req, res) => {
+    const amount = req.query?.amount;
     try {
         reservationId = req.query.id;
         const reservation = await reservationModel.getReservationById(reservationId);
@@ -44,16 +45,16 @@ const createPayment = async (req, res) => {
             transactions: [{
                 item_list: {
                     items: [{
-                        name: service.TYPE + " balance",
+                        name: service.TYPE,
                         sku: `${service.NAME}-${randomCode}`,
-                        price: reservation.BALANCE,
+                        price: amount,
                         currency: 'PHP',
                         quantity: 1,
                     }],
                 },
                 amount: {
                     currency: 'PHP',
-                    total: reservation.BALANCE,
+                    total: amount,
                 },
                 description: 'This is the payment description.',
             }],
