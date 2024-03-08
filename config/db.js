@@ -61,7 +61,8 @@ const createTableQuery = `
     "MAIN360" VARCHAR(255),
     "OTHER360" VARCHAR(255),
     "IS_DELETED" bool NOT NULL DEFAULT FALSE,
-    "PRICE_EXCEED": INT
+    "PRICE_EXCEED" INT,
+    "ADDONS" JSONB[]
   );
   CREATE TABLE IF NOT EXISTS "IMAGES" (
     "ID" VARCHAR(255) UNIQUE NOT NULL,
@@ -71,7 +72,8 @@ const createTableQuery = `
 `;
 // const alterTableQuery = `
 //   ALTER TABLE "SERVICES"
-//   ADD COLUMN "PRICE_EXCEED" INT;
+//   ADD COLUMN "PRICE_EXCEED" INT,
+//   ADD COLUMN "ADDONS" JSONB[];
 // `;
 // Create the table
 db.none(createTableQuery)

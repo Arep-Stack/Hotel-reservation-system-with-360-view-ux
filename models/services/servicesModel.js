@@ -4,8 +4,8 @@ const createServices = async (newService) => {
     try {
         const query = `
         INSERT INTO "SERVICES" 
-        ("NAME", "TYPE", "QUANTITY", "PRICE", "IMAGE", "PERSONS", "AMENITIES", "MAIN360", "OTHER360", "IS_DELETED", "PRICE_EXCEED") 
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) 
+        ("NAME", "TYPE", "QUANTITY", "PRICE", "IMAGE", "PERSONS", "AMENITIES", "MAIN360", "OTHER360", "IS_DELETED", "PRICE_EXCEED", "ADDONS") 
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12::jsonb[]) 
         RETURNING *
         `;
         const values = [
@@ -19,7 +19,8 @@ const createServices = async (newService) => {
             newService.MAIN360,
             newService.OTHER360,
             newService.IS_DELETED,
-            newService.PRICE_EXCEED
+            newService.PRICE_EXCEED,
+            newService.ADDONS
         ];
         const result = await db.one(query, values);
         return result;
@@ -64,8 +65,9 @@ const updateServices = async (serviceId, updatedService) => {
                 "MAIN360" = COALESCE($8, "MAIN360"),
                 "OTHER360" = COALESCE($9, "OTHER360"),
                 "IS_DELETED" = COALESCE($10, "IS_DELETED"),
-                "PRICE_EXCEED" = COALESCE($11, "PRICE_EXCEED")
-            WHERE "ID" = $12
+                "PRICE_EXCEED" = COALESCE($11, "PRICE_EXCEED"),
+                "ADDONS" = COALESCE($12::jsonb[], "ADDONS"),
+            WHERE "ID" = $13
             RETURNING *
         `;
         const values = [
@@ -79,6 +81,8 @@ const updateServices = async (serviceId, updatedService) => {
             updatedService.MAIN360,
             updatedService.OTHER360,
             updatedService.IS_DELETED,
+            updatedService.PRICE_EXCEED,
+            updatedService.ADDONS,
             serviceId
         ];
         const result = await db.one(query, values);
