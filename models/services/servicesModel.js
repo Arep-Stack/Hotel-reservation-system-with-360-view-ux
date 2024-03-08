@@ -66,7 +66,7 @@ const updateServices = async (serviceId, updatedService) => {
                 "OTHER360" = COALESCE($9, "OTHER360"),
                 "IS_DELETED" = COALESCE($10, "IS_DELETED"),
                 "PRICE_EXCEED" = COALESCE($11, "PRICE_EXCEED"),
-                "ADDONS" = COALESCE($12::jsonb[], "ADDONS"),
+                "ADDONS" = COALESCE($12::jsonb[], "ADDONS")
             WHERE "ID" = $13
             RETURNING *
         `;
