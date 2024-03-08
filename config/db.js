@@ -73,8 +73,7 @@ const createTableQuery = `
 `;
 // const alterTableQuery = `
 //   ALTER TABLE "SERVICES"
-//   ADD COLUMN "PRICE_EXCEED" INT,
-//   ADD COLUMN "ADDONS" JSONB[];
+//   ADD COLUMN "ADDONS" JSONB
 // `;
 // Create the table
 db.none(createTableQuery)
