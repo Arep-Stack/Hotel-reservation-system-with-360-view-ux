@@ -18,7 +18,8 @@ const postService = async (req, res) => {
                     AMENITIES: req.body.AMENITIES,
                     MAIN360: req.body.MAIN360,
                     OTHER360: req.body.OTHER360,
-                    IS_DELETED: req.body.IS_DELETED
+                    IS_DELETED: req.body.IS_DELETED,
+                    PRICE_EXCEED: req.body.PRICE_EXCEED
                 }
                 const service = await servicesModel.createServices(newService);
                 if (service.ID) {
@@ -69,7 +70,8 @@ const putService = async (req, res) => {
         AMENITIES: req.body.AMENITIES,
         MAIN360: req.body.MAIN360,
         OTHER360: req.body.OTHER360,
-        IS_DELETED: req.body.IS_DELETED
+        IS_DELETED: req.body.IS_DELETED,
+        PRICE_EXCEED: req.body.PRICE_EXCEED
     };
     try {
         const service = await servicesModel.updateServices(serviceId, updatedService);

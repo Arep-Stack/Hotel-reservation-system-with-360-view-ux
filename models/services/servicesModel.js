@@ -4,8 +4,8 @@ const createServices = async (newService) => {
     try {
         const query = `
         INSERT INTO "SERVICES" 
-        ("NAME", "TYPE", "QUANTITY", "PRICE", "IMAGE", "PERSONS", "AMENITIES", "MAIN360", "OTHER360", "IS_DELETED") 
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11::jsonb[]) 
+        ("NAME", "TYPE", "QUANTITY", "PRICE", "IMAGE", "PERSONS", "AMENITIES", "MAIN360", "OTHER360", "IS_DELETED", "PRICE_EXCEED") 
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) 
         RETURNING *
         `;
         const values = [
@@ -19,6 +19,7 @@ const createServices = async (newService) => {
             newService.MAIN360,
             newService.OTHER360,
             newService.IS_DELETED,
+            newService.PRICE_EXCEED
         ];
         const result = await db.one(query, values);
         return result;
@@ -62,8 +63,9 @@ const updateServices = async (serviceId, updatedService) => {
                 "AMENITIES" = COALESCE($7, "AMENITIES"),
                 "MAIN360" = COALESCE($8, "MAIN360"),
                 "OTHER360" = COALESCE($9, "OTHER360"),
-                "IS_DELETED" = COALESCE($10, "IS_DELETED")
-            WHERE "ID" = $11
+                "IS_DELETED" = COALESCE($10, "IS_DELETED"),
+                "PRICE_EXCEED" = COALESCE($11, "PRICE_EXCEED")
+            WHERE "ID" = $12
             RETURNING *
         `;
         const values = [
