@@ -18,8 +18,7 @@ const postService = async (req, res) => {
                     AMENITIES: req.body.AMENITIES,
                     MAIN360: req.body.MAIN360,
                     OTHER360: req.body.OTHER360,
-                    IS_DELETED: req.body.IS_DELETED,
-                    ADDONS: req.body.ADDONS
+                    IS_DELETED: req.body.IS_DELETED
                 }
                 const service = await servicesModel.createServices(newService);
                 if (service.ID) {

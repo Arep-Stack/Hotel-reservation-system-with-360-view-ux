@@ -4,7 +4,7 @@ const createServices = async (newService) => {
     try {
         const query = `
         INSERT INTO "SERVICES" 
-        ("NAME", "TYPE", "QUANTITY", "PRICE", "IMAGE", "PERSONS", "AMENITIES", "MAIN360", "OTHER360", "IS_DELETED", "ADDONS") 
+        ("NAME", "TYPE", "QUANTITY", "PRICE", "IMAGE", "PERSONS", "AMENITIES", "MAIN360", "OTHER360", "IS_DELETED") 
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11::jsonb[]) 
         RETURNING *
         `;
@@ -19,7 +19,6 @@ const createServices = async (newService) => {
             newService.MAIN360,
             newService.OTHER360,
             newService.IS_DELETED,
-            newService.ADDONS
         ];
         const result = await db.one(query, values);
         return result;
