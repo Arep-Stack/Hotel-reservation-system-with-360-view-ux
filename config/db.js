@@ -73,8 +73,9 @@ const createTableQuery = `
   );
 `;
 // const alterTableQuery = `
-//   ALTER TABLE "SERVICES"
+//   ALTER TABLE "RESERVATIONS"
 //   ADD COLUMN "ADDONS" JSONB
+//   ADD COLUMN "PAX" INT
 // `;
 // Create the table
 db.none(createTableQuery)
