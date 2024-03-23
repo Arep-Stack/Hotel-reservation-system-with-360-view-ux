@@ -47,6 +47,7 @@ const putUser = async (req, res) => {
     PHONE_NUMBER: req.body.PHONE_NUMBER,
     ADDRESS: req.body.ADDRESS,
     PASSWORD: req.body.PASSWORD,
+    QR_IMAGE: req.body.QR_IMAGE
   };
   try {
     const user = await userModel.updateUser(userId, updatedUser);
