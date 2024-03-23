@@ -5,8 +5,8 @@ const createUser = async (newUser) => {
   try {
     const query = `
       INSERT INTO "USERS" 
-      ("FIRSTNAME", "LASTNAME", "EMAIL", "PHONE_NUMBER", "ADDRESS", "PASSWORD", "IS_ADMIN") 
-      VALUES ($1, $2, $3, $4, $5, $6, $7) 
+      ("FIRSTNAME", "LASTNAME", "EMAIL", "PHONE_NUMBER", "ADDRESS", "PASSWORD", "IS_ADMIN", "QR_IMAGE") 
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8) 
       RETURNING *
     `;
     const values = [
@@ -16,7 +16,8 @@ const createUser = async (newUser) => {
       newUser.PHONE_NUMBER, 
       newUser.ADDRESS, 
       newUser.PASSWORD,
-      newUser.IS_ADMIN
+      newUser.IS_ADMIN,
+      newUser.QR_IMAGE
     ];
     const result = await db.one(query, values);
     return result;
@@ -64,8 +65,8 @@ const updateUser = async (userId, updatedUser) => {
   try {
     const query = `
       UPDATE "USERS"
-      SET "FIRSTNAME" = $1, "LASTNAME" = $2, "EMAIL" = $3, "PHONE_NUMBER" = $4, "ADDRESS" = $5, "PASSWORD" = $6
-      WHERE "ID" = $7
+      SET "FIRSTNAME" = $1, "LASTNAME" = $2, "EMAIL" = $3, "PHONE_NUMBER" = $4, "ADDRESS" = $5, "PASSWORD" = $6, "QR_IMAGE" = $7
+      WHERE "ID" = $8
       RETURNING *
     `;
     const values = [
@@ -75,6 +76,7 @@ const updateUser = async (userId, updatedUser) => {
       updatedUser.PHONE_NUMBER,
       updatedUser.ADDRESS,
       updatedUser.PASSWORD,
+      updatedUser.QR_IMAGE,
       userId,
     ];
     const result = await db.one(query, values);

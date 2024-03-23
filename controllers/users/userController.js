@@ -79,7 +79,8 @@ function sanitizeUser(user) {
     ADDRESS: user.ADDRESS,
     PHONE_NUMBER: user.PHONE_NUMBER,
     IS_ADMIN: user.IS_ADMIN,
-    IS_ACTIVE: user.IS_ACTIVE
+    IS_ACTIVE: user.IS_ACTIVE,
+    QR_IMAGE: user.QR_IMAGE
   };
   return sanitizedUser;
 }

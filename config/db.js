@@ -27,7 +27,8 @@ const createTableQuery = `
     "IS_ADMIN" bool NOT NULL DEFAULT FALSE,
     "IS_ACTIVE" bool NOT NULL DEFAULT TRUE,
     "DATE_ADDED" TIMESTAMPTZ DEFAULT NOW(),
-    "LAST_MODIFIED" TIMESTAMPTZ DEFAULT NOW()
+    "LAST_MODIFIED" TIMESTAMPTZ DEFAULT NOW(),
+    "QR_IMAGE" VARCHAR(255) DEFAULT ''
   );
   CREATE TABLE IF NOT EXISTS "RESERVATIONS" (
     "ID" SERIAL PRIMARY KEY,
@@ -73,9 +74,8 @@ const createTableQuery = `
   );
 `;
 // const alterTableQuery = `
-//   ALTER TABLE "RESERVATIONS"
-//   ADD COLUMN "ADDONS" JSONB
-//   ADD COLUMN "PAX" INT
+//   ALTER TABLE "USERS"
+//   ADD COLUMN "QR_IMAGE" VARCHAR(255)
 // `;
 // Create the table
 db.none(createTableQuery)
