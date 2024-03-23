@@ -17,7 +17,8 @@ const registerUser = async (req, res) => {
               PHONE_NUMBER: req.body.PHONE_NUMBER,
               ADDRESS: req.body.ADDRESS,
               PASSWORD: hashedPassword,
-              IS_ADMIN: req.body.IS_ADMIN
+              IS_ADMIN: req.body.IS_ADMIN,
+              QR_IMAGE: req.body.QR_IMAGE
           }
           const user = await userModel.createUser(newUser);
           res.status(201).json({ message: "Successfully registered" });
