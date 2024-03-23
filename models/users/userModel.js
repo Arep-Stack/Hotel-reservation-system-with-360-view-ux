@@ -65,8 +65,8 @@ const updateUser = async (userId, updatedUser) => {
   try {
     const query = `
       UPDATE "USERS"
-      SET "FIRSTNAME" = $1, "LASTNAME" = $2, "EMAIL" = $3, "PHONE_NUMBER" = $4, "ADDRESS" = $5, "PASSWORD" = $6, "QR_IMAGE" = $7
-      WHERE "ID" = $8
+      SET "FIRSTNAME" = $1, "LASTNAME" = $2, "EMAIL" = $3, "PHONE_NUMBER" = $4, "ADDRESS" = $5, "QR_IMAGE" = $6
+      WHERE "ID" = $7
       RETURNING *
     `;
     const values = [
@@ -75,7 +75,6 @@ const updateUser = async (userId, updatedUser) => {
       updatedUser.EMAIL,
       updatedUser.PHONE_NUMBER,
       updatedUser.ADDRESS,
-      updatedUser.PASSWORD,
       updatedUser.QR_IMAGE,
       userId,
     ];

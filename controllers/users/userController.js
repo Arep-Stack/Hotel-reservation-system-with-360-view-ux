@@ -46,7 +46,6 @@ const putUser = async (req, res) => {
     EMAIL: req.body.EMAIL,
     PHONE_NUMBER: req.body.PHONE_NUMBER,
     ADDRESS: req.body.ADDRESS,
-    PASSWORD: req.body.PASSWORD,
     QR_IMAGE: req.body.QR_IMAGE
   };
   try {
