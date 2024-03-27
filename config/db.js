@@ -43,7 +43,8 @@ const createTableQuery = `
     "PAYMENT_HISTORY" JSONB[],
     "IS_DOWNPAYMENT_PAID" bool,
     "ADDONS" JSONB[],
-    "PAX" INT
+    "PAX" INT,
+    "FEEDBACK" JSONB[]
   );
   CREATE TABLE IF NOT EXISTS "PAYMENTS" (
     "ID" SERIAL PRIMARY KEY,
@@ -75,7 +76,7 @@ const createTableQuery = `
 `;
 // const alterTableQuery = `
 //   ALTER TABLE "USERS"
-//   ADD COLUMN "QR_IMAGE" VARCHAR(255)
+//   ADD COLUMN "FEEDBACK" JSONB[]
 // `;
 // Create the table
 db.none(createTableQuery)
