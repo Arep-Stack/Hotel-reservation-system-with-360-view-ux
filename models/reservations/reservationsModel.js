@@ -73,7 +73,7 @@ const updateReservation = async (reservationId, updatereservation) => {
                 "IS_DOWNPAYMENT_PAID" = COALESCE($10, "IS_DOWNPAYMENT_PAID"),
                 "ADDONS" = COALESCE($11, "ADDONS"),
                 "PAX" = COALESCE($12, "PAX"),
-                "FEEDBACK" = COALESCE($13, "FEEDBACK")
+                "FEEDBACK" = COALESCE($13::jsonb[], "FEEDBACK")
             WHERE "ID" = $14
             RETURNING *
         `;
@@ -92,9 +92,9 @@ const updateReservation = async (reservationId, updatereservation) => {
             updatereservation.PAYMENT_HISTORY,
             updatereservation.BALANCE,
             updatereservation.IS_DOWNPAYMENT_PAID,
-            updateReservation.ADDONS,
-            updateReservation.PAX,
-            updateReservation.FEEDBACK,
+            updatereservation.ADDONS,
+            updatereservation.PAX,
+            updatereservation.FEEDBACK,
             reservationId
         ];
         
