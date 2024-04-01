@@ -74,7 +74,7 @@ const updateReservation = async (reservationId, updatereservation) => {
                 "IS_DOWNPAYMENT_PAID" = COALESCE($10, "IS_DOWNPAYMENT_PAID"),
                 "ADDONS" = COALESCE($11, "ADDONS"),
                 "PAX" = COALESCE($12, "PAX"),
-                "FEEDBACK" = COALESCE($13::jsonb[], "FEEDBACK")
+                "FEEDBACK" = COALESCE($13::jsonb[], "FEEDBACK"),
                 "GCASH_PENDING_PAYMENTS" = COALESCE($14::jsonb[], "GCASH_PENDING_PAYMENTS")
             WHERE "ID" = $15
             RETURNING *
