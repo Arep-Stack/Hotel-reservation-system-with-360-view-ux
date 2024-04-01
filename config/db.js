@@ -44,7 +44,8 @@ const createTableQuery = `
     "IS_DOWNPAYMENT_PAID" bool,
     "ADDONS" JSONB[],
     "PAX" INT,
-    "FEEDBACK" JSONB[]
+    "FEEDBACK" JSONB[],
+    "GCASH_PENDING_PAYMENTS" JSONB[]
   );
   CREATE TABLE IF NOT EXISTS "PAYMENTS" (
     "ID" SERIAL PRIMARY KEY,
@@ -76,7 +77,7 @@ const createTableQuery = `
 `;
 // const alterTableQuery = `
 //   ALTER TABLE "USERS"
-//   ADD COLUMN "FEEDBACK" JSONB[]
+//   ADD COLUMN "GCASH_PENDING_PAYMENTS" JSONB[]
 // `;
 // Create the table
 db.none(createTableQuery)
